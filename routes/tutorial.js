@@ -8,6 +8,8 @@ const tutorialRouter = (app) => {
 
   router.get('/', tutorial.find);
 
+  router.get('/:id', tutorial.findOne);
+
   app.use('/api/tutorials', router);
 };
 

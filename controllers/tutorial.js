@@ -29,10 +29,24 @@ exports.find = (req, res) => {
   Tutorial.findAll({ where: { title: { [Op.like]: `%${title}%`} } })
     .then((tutorials) => {
       if (tutorials.length === 0) {
-        res.send({ message: 'Unable to find tutorials try again' });
+        res.status(404).send({ message: 'Unable to find tutorials try again' });
       }
 
       res.send(tutorials);
+    })
+    .catch((err) => res.status(500).send({ message: err }));
+};
+
+exports.findOne = (req, res) => {
+  const { id } = req.params;
+
+  Tutorial.findByPk(id)
+    .then((tutorial) => {
+      if (!tutorial) {
+        res.status(404).send({ message: 'Unable to find tutorial try again' });
+      }
+
+      res.send(tutorial);
     })
     .catch((err) => res.status(500).send({ message: err }));
 };
