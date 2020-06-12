@@ -16,6 +16,8 @@ const tutorialRouter = (app) => {
 
   router.delete('/:id', tutorial.delete);
 
+  router.delete('/', tutorial.deleteAll);
+
   app.use('/api/tutorials', router);
 };
 

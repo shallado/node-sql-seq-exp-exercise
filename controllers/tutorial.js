@@ -89,3 +89,9 @@ exports.delete = (req, res) => {
     })
     .catch((err) => res.status(500).send({ message: err }));
 };
+
+exports.deleteAll = (req, res) => {
+  Tutorial.destroy({ where: {} })
+    .then((numRows) => res.send('Successfully removed all tutorial data'))
+    .catch((err) => res.status(500).send({ message: err }));
+};
