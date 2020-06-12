@@ -1,4 +1,6 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes} = require('sequelize');
+const tutorialModel = require('./tutorial');
+
 const { 
   database,
   username,
@@ -15,6 +17,21 @@ const sequelize = new Sequelize(database, username, password, {
 sequelize
   .authenticate()
   .then(() => {
+    const Tutorial = tutorialModel(sequelize, DataTypes);
+
+    Tutorial.sync()
+      .then(() => {
+        console.log({ 
+          message: 'Successfully synced model of table to database' 
+        });
+      })
+      .catch((err) => {
+        console.log({
+          message: 'Unable to sync model of table to database',
+          error: err
+        })
+      });
+
     console.log({ message: "Successfully connected to database" });
   })
   .catch((err) =>
