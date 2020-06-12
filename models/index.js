@@ -44,5 +44,6 @@ sequelize
   );
 
 module.exports = {
-  Tutorial
+  Tutorial,
+  Sequelize
 };

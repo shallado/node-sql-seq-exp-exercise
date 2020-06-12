@@ -1,4 +1,6 @@
-const { Tutorial } = require('../models');
+const { Tutorial, Sequelize } = require('../models');
+
+const Op = Sequelize.Op;
 
 exports.create = (req, res) => {
   const { title, description, published } = req.body;
@@ -19,4 +21,18 @@ exports.create = (req, res) => {
         error: err
       });
     });
+};
+
+exports.find = (req, res) => {
+  const { title } = req.query;
+
+  Tutorial.findAll({ where: { title: { [Op.like]: `%${title}%`} } })
+    .then((tutorials) => {
+      if (tutorials.length === 0) {
+        res.send({ message: 'Unable to find tutorials try again' });
+      }
+
+      res.send(tutorials);
+    })
+    .catch((err) => res.status(500).send({ message: err }));
 };
