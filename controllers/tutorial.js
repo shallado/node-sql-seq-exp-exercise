@@ -64,3 +64,18 @@ exports.findPublished = (req, res) => {
     })
     .catch((err) => res.status(500).send({ message: err }));
 };
+
+exports.update = (req, res) => {
+  const updates = req.body;
+  const { id } = req.params;
+
+  Tutorial.update(updates, { where: { id } })
+    .then((numRows) => {
+      if (numRows[0] === 0) {
+        res.status(400).send({ message: 'No tutorials were updated' });
+      }
+
+      res.send(`Successfully updated ${numRows[0]} tutorial`);
+    })
+    .catch((err) => res.status({ message: err }));
+};

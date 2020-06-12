@@ -12,6 +12,8 @@ const tutorialRouter = (app) => {
 
   router.get('/:id', tutorial.findOne);
 
+  router.put('/:id', tutorial.update);
+
   app.use('/api/tutorials', router);
 };
 
