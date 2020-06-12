@@ -9,15 +9,17 @@ const {
   dialect
 } = require('../config/db');
 
+
 const sequelize = new Sequelize(database, username, password, {
   host,
   dialect,
 })
 
+const Tutorial = tutorialModel(sequelize, DataTypes);
+
 sequelize
   .authenticate()
   .then(() => {
-    const Tutorial = tutorialModel(sequelize, DataTypes);
 
     Tutorial.sync()
       .then(() => {
@@ -40,3 +42,7 @@ sequelize
       error: err,
     })
   );
+
+module.exports = {
+  Tutorial
+};
