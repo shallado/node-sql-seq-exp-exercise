@@ -79,3 +79,13 @@ exports.update = (req, res) => {
     })
     .catch((err) => res.status({ message: err }));
 };
+
+exports.delete = (req, res) => {
+  const { id } = req.params;
+
+  Tutorial.destroy({ where: { id } })
+    .then((numRows) => {
+      res.send('Successfully removed tutorial')
+    })
+    .catch((err) => res.status(500).send({ message: err }));
+};
